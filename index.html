@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🎬 Заказ футбольных эдитов</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <header class="text-center p-6">
+    <h1 class="text-4xl font-bold mb-2">🎥 Заказ футбольных эдитов</h1>
+    <p class="text-gray-400">Напишите, что хотите, а дальше свяжитесь со мной в Telegram</p>
+  </header>
+
+  <section class="max-w-xl mx-auto bg-gray-800 rounded-xl p-6 shadow-lg">
+    <h2 class="text-2xl font-bold mb-4 text-center">📤 Форма заказа</h2>
+    <form id="orderForm" class="space-y-4">
+      <div>
+        <label for="name" class="block mb-1">Ваше имя или ник</label>
+        <input type="text" id="name" name="name" required
+               class="w-full rounded px-3 py-2 text-black" />
+      </div>
+      <div>
+        <label for="description" class="block mb-1">Описание эдита</label>
+        <textarea id="description" name="description" rows="3" required
+                  class="w-full rounded px-3 py-2 text-black"></textarea>
+      </div>
+      <div>
+        
+      </div>
+      <button type="submit"
+              class="bg-blue-600 w-full py-3 rounded text-white font-semibold hover:bg-blue-700 transition">
+        Отправить заказ
+      </button>
+    </form>
+
+    <div id="message" class="mt-4 text-center text-green-400 font-semibold hidden">
+      Спасибо! Ваш заказ принят.<br/>
+      Сейчас откроется чат в Telegram с <strong>@editor052</strong><br/>
+      или напишите сами по номеру: <strong>+998 77 265 66 53</strong><br/><br/>
+      <em>Оплата и общение — только в Telegram и по номеру.</em>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto bg-gray-800 rounded-xl p-6 shadow-lg mt-10">
+    <h2 class="text-3xl font-bold mb-6 text-center">🎬 Мои футбольные эдиты</h2>
+    <p class="text-center mb-8 text-blue-400 font-semibold">
+      Смотреть и брать эдиты можно в моём Telegram:  
+      <a href="https://t.me/rbsportsila" target="_blank" rel="noopener noreferrer" 
+         class="underline hover:text-blue-600">@rbsportsila</a>
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Видео 1 -->
+      <iframe class="w-full aspect-video rounded" 
+              src="https://www.youtube.com/embed/4p7oMJgXFNI" 
+              title="Edit 1" frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen></iframe>
+      <!-- Видео 2 -->
+      <iframe class="w-full aspect-video rounded" 
+              src="https://www.youtube.com/embed/XCX8kAc4zj4" 
+              title="Edit 2" frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen></iframe>
+      <!-- Видео 3 (заполни реальной ссылкой, если нужно) -->
+      <iframe class="w-full aspect-video rounded" 
+              src="https://www.youtube.com/embed/some_video_id" 
+              title="Edit 3" frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section class="max-w-xl mx-auto bg-gray-800 rounded-xl p-6 shadow-lg mt-10 text-center">
+    <h2 class="text-4xl font-extrabold mb-6 text-yellow-400">💰 Цены</h2>
+    <p class="text-2xl mb-2">🎬 <strong>1 эдит — 10 000 сум</strong></p>
+    <p class="text-2xl mb-2">🔥 <strong>2 эдита — 15 000 сум</strong></p>
+    <p class="text-2xl mb-2">⚡ <strong>Срочный — +5 000 сум</strong></p>
+  </section>
+
+  <footer class="text-center text-gray-400 mt-12 mb-6 text-sm">
+    © 2025 Все права защищены
+  </footer>
+
+  <script>
+    const form = document.getElementById('orderForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.display = 'none';
+      message.classList.remove('hidden');
+
+      const name = encodeURIComponent(document.getElementById('name').value.trim() || 'Азиз');
+      const description = encodeURIComponent(document.getElementById('description').value.trim() || 'эдит на Месси 🎥');
+
+      const telegramUrl = `https://t.me/editor052?text=Привет!%20Меня%20зовут%20${name},%20хочу%20${description}`;
+
+      window.open(telegramUrl, '_blank');
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
