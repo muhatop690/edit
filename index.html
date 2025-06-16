@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RB Sports Edits</title>
+  <title>EDITOR</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -73,6 +73,13 @@
       border-left: 4px solid #a050f5;
       margin-bottom: 10px;
     }
+    .premium-benefits {
+      background: #2c1f3a;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 10px;
+      display: none;
+    }
     footer {
       text-align: center;
       padding: 20px;
@@ -95,6 +102,13 @@
       <p>🔥 2 эдита — 15 000 сум</p>
       <p>⚡ Срочный — +5 000 сум</p>
       <p style="margin-top: 20px; font-weight: bold;">Оплата через Telegram после обсуждения</p>
+      <button onclick="togglePremium()">Плюсы премиума 💎</button>
+      <div id="premiumInfo" class="premium-benefits">
+        <p>✅ Водяной знак с вашим именем</p>
+        <p>🚀 Приоритетное выполнение заказа</p>
+        <p>🎨 Больше эффектов и качество Full HD</p>
+        <p>⚡ Быстрая доставка</p>
+      </div>
     </div>
 
     <div class="section form">
@@ -138,9 +152,15 @@
       const encoded = encodeURIComponent(text);
       window.location.href = `https://t.me/editor052?text=${encoded}`;
     }
+
+    function togglePremium() {
+      const premium = document.getElementById("premiumInfo");
+      premium.style.display = premium.style.display === "none" ? "block" : "none";
+    }
   </script>
 </body>
 </html>
+
 
 
 
