@@ -3,48 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EDITOR</title>
+  <title>RB Sports Edits</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
       background: #0f0f1b;
       color: #f5f5f5;
+      margin: 0;
+      padding: 0;
     }
     header {
       background: #5f00ba;
       padding: 15px;
-      text-align: center;
       color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
     }
-    .lang-switch {
-      position: absolute;
-      top: 10px;
-      right: 20px;
+    .lang {
+      cursor: pointer;
+      font-weight: bold;
     }
     .container {
       padding: 20px;
       max-width: 900px;
       margin: auto;
     }
-    h1, h2 {
-      color: #ffffff;
-    }
-    .prices {
+    .section {
       background: #1f1f2e;
-      border-radius: 10px;
       padding: 20px;
+      border-radius: 10px;
       margin-bottom: 20px;
-    }
-    .prices p {
-      font-size: 20px;
-      margin: 10px 0;
-    }
-    .form {
-      background: #1f1f2e;
-      padding: 20px;
-      border-radius: 10px;
     }
     input, textarea {
       width: 100%;
@@ -52,7 +43,7 @@
       margin: 10px 0;
       background: #2c2c3a;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       color: white;
     }
     button {
@@ -61,105 +52,182 @@
       padding: 10px 20px;
       border: none;
       border-radius: 8px;
-      cursor: pointer;
       font-size: 16px;
+      cursor: pointer;
     }
-    .section {
-      margin-top: 40px;
+    .premium-button {
+      background: #b366ff;
+      margin-top: 10px;
     }
-    .reviews p {
-      background: #2a2a3a;
-      padding: 10px;
-      border-left: 4px solid #a050f5;
-      margin-bottom: 10px;
-    }
-    .premium-benefits {
-      background: #2c1f3a;
-      padding: 15px;
-      margin-top: 15px;
+    .videos iframe {
+      margin: 10px;
       border-radius: 10px;
-      display: none;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
+    .profile {
       font-size: 14px;
-      background: #1a1a26;
+      font-weight: bold;
+    }
+    #authSection.hidden {
+      display: none;
     }
   </style>
 </head>
-<body>
+<body onload="initializeSite()">
+
   <header>
-    <h1>RB Sports Edits</h1>
-    <div class="lang-switch">RU | UZ</div>
+    <div id="logoText">RB Sports Edits</div>
+    <div>
+      <span class="profile" id="profileName">👤 Гость</span>
+      <span class="lang" onclick="switchLanguage()">RU | UZ</span>
+    </div>
   </header>
 
   <div class="container">
 
-    <div class="section prices">
-      <h2>💰 Цены:</h2>
-      <p>🎬 1 эдит — 10 000 сум</p>
-      <p>🔥 2 эдита — 15 000 сум</p>
-      <p>⚡ Срочный — +5 000 сум</p>
-      <p style="margin-top: 20px; font-weight: bold;">Оплата через Telegram после обсуждения</p>
-      <button onclick="togglePremium()">Плюсы премиума 💎</button>
-      <div id="premiumInfo" class="premium-benefits">
-        <p>✅ Водяной знак с вашим именем</p>
-        <p>🚀 Приоритетное выполнение заказа</p>
-        <p>🎨 Больше эффектов и качество Full HD</p>
-        <p>⚡ Быстрая доставка</p>
-      </div>
-    </div>
+    <div class="section" id="authSection">
+      <h2 id="regTitle">Регистрация</h2>
+      <input type="text" id="regName" placeholder="Имя" />
+      <input type="password" id="regPass" placeholder="Пароль" />
+      <button onclick="registerUser()" id="regBtn">Зарегистрироваться</button>
 
-    <div class="section form">
-      <h2>📥 Заказать эдит:</h2>
-      <form onsubmit="redirectToTelegram(); return false;">
-        <input type="text" id="name" placeholder="Ваше имя" required />
-        <textarea id="desc" rows="4" placeholder="Кого хотите в эдит (например, Месси, Роналду)..." required></textarea>
-        <button type="submit">Отправить заявку</button>
-      </form>
+      <h2 id="loginTitle" style="margin-top:30px;">Вход</h2>
+      <input type="text" id="loginName" placeholder="Имя" />
+      <input type="password" id="loginPass" placeholder="Пароль" />
+      <button onclick="loginUser()" id="loginBtn">Войти</button>
     </div>
 
     <div class="section">
-      <h2>🎬 Примеры моих эдитов</h2>
-      <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-        <iframe width="320" height="180" src="https://www.youtube.com/embed/XCX8kAc4zj4" frameborder="0" allowfullscreen></iframe>
-        <iframe width="320" height="180" src="https://www.youtube.com/embed/lCtmTV7pqeY" frameborder="0" allowfullscreen></iframe>
-        <iframe width="320" height="180" src="https://www.youtube.com/embed/_Q91Xyaj_Vg" frameborder="0" allowfullscreen></iframe>
-      </div>
+      <h2 id="pricesTitle">💰 Цены:</h2>
+      <p id="price1">🎬 1 эдит — 10 000 сум</p>
+      <p id="price2">🔥 2 эдита — 15 000 сум</p>
+      <p id="price3">⚡ Срочный — +5 000 сум</p>
+      <p id="price4">💎 Премиум (водяной знак) — 10 000 сум</p>
+      <p style="color:#44ff88;" id="discountText">🎉 Первый заказ — 30% скидка!</p>
+      <button class="premium-button" onclick="alert(premiumInfo)">Плюсы Премиума</button>
     </div>
 
-    <div class="section reviews">
-      <h2>🗣️ Отзывы:</h2>
-      <p>“Очень крутой эдит, спасибо большое!”</p>
-      <p>“Сделал быстро и красиво, рекомендую!”</p>
-      <p>“Теперь буду заказывать только у тебя!”</p>
+    <div class="section">
+      <h2 id="orderTitle">📥 Заказать эдит</h2>
+      <input type="text" id="clientName" placeholder="Ваше имя" />
+      <textarea id="desc" placeholder="Описание эдита"></textarea>
+      <input type="text" id="music" placeholder="Музыка (название/исполнитель)" />
+      <button onclick="sendToTelegram()" id="sendBtn">Отправить в Telegram</button>
+    </div>
+
+    <div class="section videos">
+      <h2 id="examplesTitle">🎬 Примеры эдитов</h2>
+      <iframe width="300" height="170" src="https://www.youtube.com/embed/XCX8kAc4zj4" allowfullscreen></iframe>
+      <iframe width="300" height="170" src="https://www.youtube.com/embed/lCtmTV7pqeY" allowfullscreen></iframe>
+      <iframe width="300" height="170" src="https://www.youtube.com/embed/_Q91Xyaj_Vg" allowfullscreen></iframe>
+    </div>
+
+    <div class="section">
+      <h2>📞 Telegram</h2>
+      <p>Если есть вопросы — <strong>@editor052</strong> или <strong>+998 77 265 66 53</strong></p>
     </div>
 
   </div>
 
-  <footer>
-    Если возникли проблемы — напишите в Telegram: <br>
-    <strong>@editor052</strong> или <br>
-    <strong>+998 77 265 66 53</strong>
-  </footer>
-
   <script>
-    function redirectToTelegram() {
-      const name = document.getElementById("name").value;
-      const desc = document.getElementById("desc").value;
-      const text = `Привет! Меня зовут ${name}, хочу эдит: ${desc}`;
-      const encoded = encodeURIComponent(text);
-      window.location.href = `https://t.me/editor052?text=${encoded}`;
+    function registerUser() {
+      const name = document.getElementById('regName').value;
+      const pass = document.getElementById('regPass').value;
+      if (name && pass) {
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userPass', pass);
+        alert("Успешно зарегистрирован!");
+        showProfile();
+      }
     }
 
-    function togglePremium() {
-      const premium = document.getElementById("premiumInfo");
-      premium.style.display = premium.style.display === "none" ? "block" : "none";
+    function loginUser() {
+      const name = document.getElementById('loginName').value;
+      const pass = document.getElementById('loginPass').value;
+      const savedName = localStorage.getItem('userName');
+      const savedPass = localStorage.getItem('userPass');
+      if (name === savedName && pass === savedPass) {
+        alert("Вход выполнен!");
+        showProfile();
+      } else {
+        alert("Неверное имя или пароль!");
+      }
+    }
+
+    function showProfile() {
+      const user = localStorage.getItem('userName');
+      if (user) {
+        document.getElementById('profileName').innerText = `👤 ${user}`;
+        document.getElementById('authSection').classList.add("hidden");
+      }
+    }
+
+    function sendToTelegram() {
+      const name = document.getElementById("clientName").value;
+      const desc = document.getElementById("desc").value;
+      const music = document.getElementById("music").value;
+      const text = `Привет! Меня зовут ${name}, хочу эдит. Описание: ${desc}. Музыка: ${music}`;
+      window.location.href = `https://t.me/editor052?text=${encodeURIComponent(text)}`;
+    }
+
+    const texts = {
+      ru: {
+        regTitle: "Регистрация", loginTitle: "Вход", regBtn: "Зарегистрироваться", loginBtn: "Войти",
+        pricesTitle: "💰 Цены:", price1: "🎬 1 эдит — 10 000 сум", price2: "🔥 2 эдита — 15 000 сум",
+        price3: "⚡ Срочный — +5 000 сум", price4: "💎 Премиум (водяной знак) — 10 000 сум",
+        discountText: "🎉 Первый заказ — 30% скидка!",
+        premiumInfo: "Премиум = Водяной знак с вашим именем или каналом.",
+        orderTitle: "📥 Заказать эдит", sendBtn: "Отправить в Telegram", examplesTitle: "🎬 Примеры эдитов"
+      },
+      uz: {
+        regTitle: "Ro'yxatdan o'tish", loginTitle: "Kirish", regBtn: "Ro'yxatdan o'tish", loginBtn: "Kirish",
+        pricesTitle: "💰 Narxlar:", price1: "🎬 1 ta edit — 10 000 so'm", price2: "🔥 2 ta edit — 15 000 so'm",
+        price3: "⚡ Tez — +5 000 so'm", price4: "💎 Premium (suv belgisi) — 10 000 so'm",
+        discountText: "🎉 Birinchi buyurtmaga — 30% chegirma!",
+        premiumInfo: "Premium = Suv belgisi ismingiz yoki kanal nomi bilan.",
+        orderTitle: "📥 Edit buyurtma berish", sendBtn: "Telegramga yuborish", examplesTitle: "🎬 Edit namunalari"
+      }
+    };
+
+    let currentLang = localStorage.getItem("lang") || "ru";
+    let premiumInfo = texts[currentLang].premiumInfo;
+
+    function switchLanguage() {
+      currentLang = currentLang === "ru" ? "uz" : "ru";
+      localStorage.setItem("lang", currentLang);
+      loadLanguage();
+    }
+
+    function loadLanguage() {
+      const t = texts[currentLang];
+      premiumInfo = t.premiumInfo;
+      for (let key in t) {
+        const el = document.getElementById(key);
+        if (el) el.innerText = t[key];
+      }
+    }
+
+    function initializeSite() {
+      loadLanguage();
+      showProfile();
     }
   </script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
